@@ -49,3 +49,8 @@ A shared `safeFetch` utility is used to centralize error handling and ensure cle
 - State management is intentionally kept simple using React hooks, as the application scope does not require external state libraries.
 
 ---
+## Live Demo
+
+A deployed preview of the application is available here:
+
+https://chat-dashboard-ui-xi.vercel.app
