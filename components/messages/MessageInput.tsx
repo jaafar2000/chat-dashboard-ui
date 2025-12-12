@@ -1,5 +1,15 @@
+import { useState } from "react";
 import Image from "next/image";
 export default function MessageInput() {
+  const [message, setMessage] = useState("");
+
+  const handleSend = () => {
+    if (message.trim()) {
+      console.log("Sending message:", message);
+      setMessage("");
+    }
+  };
+
   return (
     <div className=" px-2 py-3">
       <div
@@ -17,6 +27,9 @@ export default function MessageInput() {
         <div className="px-3 py-1">
           <input
             placeholder="Type something…."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
             className="w-full bg-transparent text-xs outline-none placeholder:text-gray-400"
           />
         </div>
@@ -54,14 +67,17 @@ export default function MessageInput() {
               src={"/assets/strike.svg"}
               width={15}
               height={15}
-              alt="image"
+              alt="strike"
             />
-            <Image
-              src={"/assets/mice.svg"}
-              width={15}
-              height={15}
-              alt="image"
-            />
+            <Image src={"/assets/mice.svg"} width={15} height={15} alt="mice" />
+            <button
+              onClick={handleSend}
+              disabled={!message.trim()}
+              className="ml-auto text-blue-500 disabled:text-gray-300"
+              aria-label="Send message"
+            >
+              Send
+            </button>
           </div>
         </div>
       </div>

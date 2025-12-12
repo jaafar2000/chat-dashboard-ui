@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import type { ChatPreview } from "@/lib/types";
 import AvatarCircle from "../ui/AvatarCircle";
 import Skeleton from "../ui/Skeleton";
@@ -18,6 +19,24 @@ export default function ChatList({
   onSelectChat,
   loading,
 }: Props) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortBy, setSortBy] = useState<"newest" | "oldest">("newest");
+
+  const filteredChats = useMemo(() => {
+    let filtered = chats.filter(
+      (chat) =>
+        chat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        chat.rolePreview.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    filtered.sort((a, b) => {
+      const timeA = new Date(`2025-08-28 ${a.time}`).getTime();
+      const timeB = new Date(`2025-08-28 ${b.time}`).getTime();
+      return sortBy === "newest" ? timeB - timeA : timeA - timeB;
+    });
+
+    return filtered;
+  }, [chats, searchTerm, sortBy]);
   return (
     <section className="flex h-full flex-col border-r border-subtle bg-[#FFFFFFB2]">
       <header className="flex items-center justify-between border-b border-subtle px-4 py-3 h-[61px]">
@@ -45,18 +64,25 @@ export default function ChatList({
           <Search className="h-3.5 w-3.5 text-gray-400" />
           <input
             placeholder="Search Chat"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-transparent text-[11px] outline-none placeholder:text-gray-400"
+            aria-label="Search chats"
           />
         </div>
         <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500">
           <div className="flex items-center gap-2">
             <span className="font-medium text-gray-800">Open</span>
             <span className="rounded-full bg-gray-100 px-2 py-0.5">
-              {chats.length}
+              {filteredChats.length}
             </span>
           </div>
-          <button className="flex items-center gap-1">
-            <span>Newest</span>
+          <button
+            onClick={() => setSortBy(sortBy === "newest" ? "oldest" : "newest")}
+            className="flex items-center gap-1"
+            aria-label={`Sort by ${sortBy === "newest" ? "oldest" : "newest"}`}
+          >
+            <span>{sortBy === "newest" ? "Newest" : "Oldest"}</span>
             <Filter className="h-3 w-3 text-gray-400" />
           </button>
         </div>
@@ -77,7 +103,7 @@ export default function ChatList({
                 <Skeleton className="h-3 w-8" />
               </div>
             ))
-          : chats.map((chat) => (
+          : filteredChats.map((chat) => (
               <button
                 key={chat.id}
                 onClick={() => onSelectChat(chat.id)}

@@ -49,7 +49,8 @@ const Dashboard = ({ sidebarUsers, chats }: Props) => {
 
         setMessages(msgs);
         setContact(contact);
-      } catch {
+      } catch (err) {
+        console.error("Error loading chat:", err);
         setError("Failed to load chat");
       } finally {
         setLoadingMessages(false);
@@ -72,12 +73,19 @@ const Dashboard = ({ sidebarUsers, chats }: Props) => {
       <TopBar />
 
       {error && (
-        <div className="border-b border-red-200 bg-red-50 px-4 py-2 text-center text-[11px] text-red-700">
+        <div
+          className="border-b border-red-200 bg-red-50 px-4 py-2 text-center text-[11px] text-red-700"
+          role="alert"
+          aria-live="polite"
+        >
           {error}
         </div>
       )}
 
-      <main className="grid h-full grid-cols-[260px_5px_340px_5px_minmax(0,1fr)_5px_320px] px-5 pb-4 pt-1">
+      <main
+        className="grid h-full grid-cols-[260px_5px_340px_5px_minmax(0,1fr)_5px_320px] px-5 pb-4 pt-1"
+        role="main"
+      >
         <Sidebar users={sidebarUsers} loading={false} />
         <div />
         <ChatList
@@ -87,7 +95,11 @@ const Dashboard = ({ sidebarUsers, chats }: Props) => {
           loading={false}
         />
         <div />
-        <MessageView messages={messages} loading={loadingMessages} />
+        <MessageView
+          messages={messages}
+          loading={loadingMessages}
+          contact={contact}
+        />
         <div />
         <DetailsPanel contact={contact} loading={loadingContact} />
       </main>

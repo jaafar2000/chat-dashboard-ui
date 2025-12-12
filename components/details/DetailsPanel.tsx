@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import type { ContactDetails } from "@/lib/types";
 import { ChevronDown } from "lucide-react";
+import Skeleton from "../ui/Skeleton";
 
 export default function DetailsPanel({
   contact,
@@ -56,10 +57,10 @@ export default function DetailsPanel({
         >
           {loading ? (
             <div className="px-4 space-y-2">
-              <Skeleton w="80px" />
-              <Skeleton w="120px" />
-              <Skeleton w="140px" />
-              <Skeleton w="100px" />
+              <Skeleton className="h-3 w-20" />
+              <Skeleton className="h-3 w-30" />
+              <Skeleton className="h-3 w-35" />
+              <Skeleton className="h-3 w-25" />
             </div>
           ) : !contact ? (
             <p className="px-4 text-gray-400 text-[11px]">
@@ -192,14 +193,5 @@ function Pill({ text }: { text: string }) {
     <span className="inline-flex items-center rounded-full bg-[#E5F1FC] border border-[#007AEC40] px-2 py-1 text-[10px] font-semibold text-[#007AEC]">
       {text}
     </span>
-  );
-}
-
-function Skeleton({ w }: { w: string }) {
-  return (
-    <div
-      className={`h-3 rounded bg-gray-200 animate-pulse`}
-      style={{ width: w }}
-    />
   );
 }

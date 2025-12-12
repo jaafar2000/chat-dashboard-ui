@@ -1,4 +1,4 @@
-import type { Message } from "@/lib/types";
+import type { Message, ContactDetails } from "@/lib/types";
 import MessageBubble from "./MessageBubble";
 import MessageInput from "./MessageInput";
 import Skeleton from "../ui/Skeleton";
@@ -7,19 +7,25 @@ import Image from "next/image";
 type Props = {
   messages: Message[];
   loading: boolean;
+  contact: ContactDetails | null;
 };
 
-export default function MessageView({ messages, loading }: Props) {
+export default function MessageView({ messages, loading, contact }: Props) {
+  const displayName = contact
+    ? `${contact.firstName} ${contact.lastName}`
+    : "Unknown";
+  const company = contact?.company || "Unknown";
+
   return (
     <section className="flex h-full flex-col bg-[#f5f5f7] relative">
       <header className="flex items-center justify-between border-b border-subtle bg-panel px-5 py-3">
         <div className="flex items-center gap-3">
-          <AvatarCircle name="Olivia Mckinsey" />
+          <AvatarCircle name={displayName} />
           <div>
             <h2 className="text-xs font-semibold text-gray-900">
-              Olivia Mckinsey
+              {displayName}
             </h2>
-            <p className="text-[10px] text-gray-400">Fit4Life</p>
+            <p className="text-[10px] text-gray-400">{company}</p>
           </div>
         </div>
         <div className="flex items-center gap-2 text-gray-500">
