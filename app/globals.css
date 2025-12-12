@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
+:root {
+  --app-bg: #f5f5f7;
+  --topbar-bg: #ffffff;
+  --panel-bg: #ffffff;
+  --border-subtle: #e5e7eb;
+  --border-strong: #d1d5db;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-soft: #9ca3af;
+  --accent: #2563eb;
+  --accent-soft: #e0edff;
+  --badge-purple: #8b5cf6;
+  --chat-agent: #f6e8ff;
+  --chat-user: #ffffff;
+  --note-yellow: #ffe9a9;
+  --note-yellow-soft: #fff7d4;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--app-bg);
+  color: var(--text-main);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d8 transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #d4d4d8;
+  border-radius: 9999px;
+}
+
+.bg-app-bg {
+  background-color: var(--app-bg);
+}
+.bg-topbar {
+  background-color: var(--topbar-bg);
+}
+.bg-panel {
+  background-color: var(--panel-bg);
+}
+.border-subtle {
+  border-color: var(--border-subtle);
+}
+.border-strong {
+  border-color: var(--border-strong);
+}
+.text-main {
+  color: var(--text-main);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-soft {
+  color: var(--text-soft);
+}
+
+.imageRight {
+  position: absolute;
+  width: 1455.723px;
+  height: 1455.723px;
+  right: -530px;
+  z-index: 5;
+  background-repeat: no-repeat;
+  background-image: url("/assets/right.png");
+}
+
+.imageLeft {
+  position: absolute;
+  width: 1455.723px;
+  height: 1455.723px;
+  background-repeat: no-repeat;
+  background-image: url("/assets/leftt.png");
+  z-index: 2;
+}
+.hex-button {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  isolation: isolate;
+
+  background: rgba(0, 0, 0, 0.2);
+  border: 1.33px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12.4147px;
+
+  transition: background 0.25s ease, border 0.25s ease, box-shadow 0.25s ease,
+    opacity 0.2s ease;
+}
+
+.hex-button:hover {
+  background: rgba(0, 0, 0, 0.35);
+
+  border: 1.33px solid transparent;
+  border-image: linear-gradient(136deg, rgba(0, 122, 236, 0.12) 7%, #007aec 91%)
+    1;
+
+  border-radius: 12.4147px; /* LOCKED — does not change */
+
+  box-shadow: 0 0 16px rgba(0, 122, 236, 0.35);
+}
+
+.hex-icon {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.hex-button:hover .hex-icon {
+  opacity: 1;
 }

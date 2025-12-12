@@ -1,0 +1,14 @@
+import type { HTMLAttributes } from "react";
+import clsx from "clsx";
+
+export default function Skeleton({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={clsx("animate-pulse rounded-md bg-gray-200/70", className)}
+      {...props}
+    />
+  );
+}
