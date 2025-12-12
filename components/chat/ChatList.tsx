@@ -40,7 +40,6 @@ export default function ChatList({
         </span>
       </header>
 
-      {/* Search + filter */}
       <div className="border-b border-subtle px-4 py-2">
         <div className="flex items-center gap-2 rounded-full  px-3 py-1.5">
           <Search className="h-3.5 w-3.5 text-gray-400" />
@@ -63,7 +62,6 @@ export default function ChatList({
         </div>
       </div>
 
-      {/* List */}
       <div className="flex-1 space-y-1 overflow-y-auto px-2 py-2">
         {loading
           ? Array.from({ length: 8 }).map((_, i) => (

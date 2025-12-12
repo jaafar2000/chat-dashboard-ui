@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 
 const icons = [
@@ -61,7 +60,6 @@ const icons = [
 const LoadingScreen = () => {
   return (
     <div className="min-w-screen min-h-screen overflow-hidden flex items-center justify-center bg-[#0C0C0C]">
-      {/* Background Blur GIF */}
       <div className="absolute inset-0 bg-[#0c182e] overflow-hidden">
         <Image
           src="/assets/AI_RING.gif"
@@ -71,9 +69,7 @@ const LoadingScreen = () => {
         />
       </div>
 
-      {/* Main window */}
       <div className="w-[1440px] h-[869px] bg-[#0C0C0C] rounded-[20px] relative overflow-hidden">
-        {/* Dashboard Bottom Preview */}
         <div className="w-[1200px] h-[300px] absolute bottom-0 left-1/2 -translate-x-1/2 z-[150]">
           <Image
             src="/assets/dashboard-preview.png"
@@ -83,14 +79,11 @@ const LoadingScreen = () => {
           />
         </div>
 
-        {/* Background Planets */}
         <div className="imageRight"></div>
         <div className="imageLeft"></div>
 
-        {/* Center Glass Card */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="w-[1392px] h-[820px] rounded-[24px] border-[2px] border-[#FFFFFF1A] bg-white/5 backdrop-blur-[60px] pt-[24px] pr-[80px] pb-[178px] pl-[80px] flex flex-col items-center relative z-[100]">
-            {/* Floating Icons */}
             {icons.map((icon, i) => (
               <div
                 key={i}
@@ -112,7 +105,6 @@ const LoadingScreen = () => {
               </div>
             ))}
 
-            {/* Center GIF Ring */}
             <div className="flex justify-center relative mt-16">
               <div className="w-[288px] h-[273px] relative">
                 <Image
@@ -124,7 +116,6 @@ const LoadingScreen = () => {
               </div>
             </div>
 
-            {/* Text Content */}
             <div className="text-center w-[530px] mt-10">
               <h1 className="text-[38px] font-bold text-white">
                 Extracting Information...

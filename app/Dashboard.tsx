@@ -23,7 +23,6 @@ type Props = {
 };
 
 const Dashboard = ({ sidebarUsers, chats }: Props) => {
-  const [showSplash, setShowSplash] = useState(false);
   const [activeChatId, setActiveChatId] = useState<number | null>(
     chats[0]?.id ?? null
   );
@@ -35,20 +34,11 @@ const Dashboard = ({ sidebarUsers, chats }: Props) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const seen = sessionStorage.getItem("splash-shown");
-    if (!seen) {
-      sessionStorage.setItem("splash-shown", "true");
-      setShowSplash(true);
-      const t = setTimeout(() => setShowSplash(false), 2000);
-      return () => clearTimeout(t);
-    }
-  }, []);
-
-  useEffect(() => {
     if (!activeChatId) return;
 
     async function loadChat() {
       try {
+        setError(null);
         setLoadingMessages(true);
         setLoadingContact(true);
 
@@ -70,7 +60,12 @@ const Dashboard = ({ sidebarUsers, chats }: Props) => {
     loadChat();
   }, [activeChatId]);
 
-  if (showSplash) return <LoadingScreen />;
+  const isInitialLoading =
+    loadingMessages && loadingContact && messages.length === 0;
+
+  if (isInitialLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="flex h-screen flex-col bg-app-bg">
